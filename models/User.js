@@ -14,10 +14,6 @@ const UserSchema = new Schema({
   password: {
     type: String,
     requried: true
-  },
-  favourites: {
-    type: [Number],
-    required: false
   }
 });
 
