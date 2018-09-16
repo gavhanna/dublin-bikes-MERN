@@ -1,0 +1,46 @@
+#map {
+  height: calc(100vh - 56px);
+  width: 100vw;
+}
+
+.location {
+  color: white;
+  background: #209cee;
+  text-align: center;
+  position: fixed;
+  font-size: 1rem;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 100vw;
+  padding: 15px 0;
+  transition: all .2s ease-in-out;
+}
+
+.hide-info {
+  transform: translateY(1000px)
+}
+
+.availability {
+  display: flex;
+  justify-content: space-around;
+  max-width: 300px;
+  margin: 10px auto;
+}
+
+.availability-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.count {
+  font-size: 2.5rem;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: lime;
+}
