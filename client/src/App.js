@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
@@ -11,6 +12,7 @@ import Navbar from "./components/layout/Navbar";
 import Map from "./components/map/Map";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Favourites from './components/favourites/Favourites';
 
 import './App.css';
 
@@ -32,15 +34,67 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      locations: [],
+      updating: false,
+      faveNums: [],
+      faveLocations: []
+    }
+  }
+
+  componentDidMount() {
+    this.getDublinBikesData();
+
+  }
+
+  getDublinBikesData = () => {
+    this.setState({ updating: true })
+    axios.get("https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=ef653629fed566ec812f1444f8bb2b3ddc6e1bbf")
+      .then(res => this.setState({
+        locations: res.data
+      }))
+      .then(() => this.setState({ updating: false }))
+      .then(() => this.getFaves())
+      .catch(err => console.log(err))
+  }
+
+  getFaves = () => {
+    axios.get("/api/favourites")
+      .then(res => this.setState({ faveNums: res.data.locations }))
+      .then(() => {
+        const locations = [];
+        this.state.locations.forEach(location => {
+          if (this.state.faveNums.includes(parseInt(location.number))) {
+            locations.push(location);
+          }
+        })
+        this.setState({ faveLocations: locations })
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     return (
       <Provider store={store}>
         <Router>
           <div className="App">
             <Navbar />
-            <Route exact path="/" component={Map} />
+            <Route exact path="/" render={() => <Map
+              locations={this.state.locations}
+              updating={this.state.updating}
+              faveLocations={this.state.faveLocations}
+              faveNums={this.state.faveNums}
+            />} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            {/* <Route exact path="/favourites" component={Favourites} /> */}
+            <Route exact path="/favourites" render={() => <Favourites
+              locations={this.state.locations}
+              updating={this.state.updating}
+              faveLocations={this.state.faveLocations}
+            />} />
           </div>
         </Router>
       </Provider>

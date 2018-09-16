@@ -16,7 +16,7 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/">Favourites</Link>
+          <Link className="nav-link" to="/favourites">Favourites</Link>
         </li>
         <li className="nav-item">
           <a
@@ -55,7 +55,7 @@ class Navbar extends Component {
   }
 }
 
-Navbar.PropTypes = {
+Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 }

@@ -63,3 +63,14 @@
   display: flex;
   justify-content: space-around;
 }
+
+.fave-button {
+  position: absolute;
+  right: 10%;
+  font-size: 1rem;
+  color: white;
+}
+
+.gold {
+  color: gold;
+}

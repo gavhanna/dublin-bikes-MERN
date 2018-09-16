@@ -10,6 +10,8 @@ class LocationInfo extends Component {
           "hide-info": !this.props.isLocationSelected
         })}
       >
+        {/* {this.props.faveNums.includes(parseInt(this.props.location.number)) ? <span className="fave-button"><i class="fas fa-star"></i></span> : null} */}
+        {/* {TODO: If user is logged in, show a star. if user faved this, show a gold star} */}
         {!this.props.location.address ? <h2>Please select a location on the map</h2> :
           <p>{this.props.location.address}</p>}
         <div className="availability">

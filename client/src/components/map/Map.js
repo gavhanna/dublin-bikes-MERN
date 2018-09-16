@@ -7,30 +7,30 @@ class Map extends Component {
   constructor() {
     super();
     this.state = {
-      locations: [],
+      //locations: [],
       infoOpen: false,
       selectedLocation: {},
       isLocationSelected: false,
-      updating: false
+      //updating: false
     }
   }
 
   componentDidMount = () => {
-    this.getDublinBikesData();
+    //this.getDublinBikesData();
     this.getCurrentPosition();
     window.map.addListener("click", (e) => {
       this.onMapClick(e);
     });
   }
 
-  getDublinBikesData = () => {
-    this.setState({ updating: true })
-    axios.get("https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=ef653629fed566ec812f1444f8bb2b3ddc6e1bbf")
-      .then(res => this.setState({
-        locations: res.data
-      }))
-      .then(() => this.setState({ updating: false }))
-  }
+  // getDublinBikesData = () => {
+  //   this.setState({ updating: true })
+  //   axios.get("https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=ef653629fed566ec812f1444f8bb2b3ddc6e1bbf")
+  //     .then(res => this.setState({
+  //       locations: res.data
+  //     }))
+  //     .then(() => this.setState({ updating: false }))
+  // }
 
   onMarkerClick = (marker) => {
     this.setState({
@@ -63,13 +63,15 @@ class Map extends Component {
     return (
       <div>
         <GoogleMap
-          locations={this.state.locations}
+          locations={this.props.locations}
           selectedLocation={this.state.selectedLocation}
           onMarkerClick={this.onMarkerClick}
           onMapClick={this.onMapClick} />
         <LocationInfo
           location={this.state.selectedLocation}
-          isLocationSelected={this.state.isLocationSelected} />
+          isLocationSelected={this.state.isLocationSelected}
+          faveLocations={this.props.faveLocations}
+          faveNums={this.props.faveNums} />
       </div>
     )
   }
