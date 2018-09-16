@@ -71,7 +71,8 @@ class Map extends Component {
           location={this.state.selectedLocation}
           isLocationSelected={this.state.isLocationSelected}
           faveLocations={this.props.faveLocations}
-          faveNums={this.props.faveNums} />
+          faveNums={this.props.faveNums}
+          addToFaves={this.props.addToFaves} />
       </div>
     )
   }

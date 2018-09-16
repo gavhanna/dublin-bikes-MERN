@@ -75,6 +75,31 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
+  addToFaves = (location) => {
+    this.setState({
+      faveNums: [...this.state.faveNums, location.number],
+      faveLocations: [...this.state.faveLocations, location]
+    })
+  }
+
+  deleteFromFaves = (location) => {
+    const newFaveLocations = this.state.faveLocations.filter(fave => {
+      if (location.number != fave.number) {
+        return fave;
+      }
+    });
+    const newFaveNums = this.state.faveNums.filter(fave => {
+      if (location.number != fave) {
+        return fave;
+      }
+    })
+
+    this.setState({
+      faveLocations: newFaveLocations,
+      faveNums: newFaveNums
+    });
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -86,6 +111,7 @@ class App extends Component {
               updating={this.state.updating}
               faveLocations={this.state.faveLocations}
               faveNums={this.state.faveNums}
+              addToFaves={this.addToFaves}
             />} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
@@ -94,6 +120,7 @@ class App extends Component {
               locations={this.state.locations}
               updating={this.state.updating}
               faveLocations={this.state.faveLocations}
+              deleteFromFaves={this.deleteFromFaves}
             />} />
           </div>
         </Router>

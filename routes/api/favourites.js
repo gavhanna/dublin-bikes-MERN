@@ -48,13 +48,12 @@ router.post("/add", passport.authenticate("jwt", { session: false }), (req, res)
     })
 });
 
-// @route    POST api/favourites/remove
+// @route    DELETE api/favourites/remove
 // @desc     remove fave for current user
 // @acccess  Private
 router.delete("/remove/:fave", passport.authenticate("jwt", { session: false }), (req, res) => {
   Favourites.findOne({ user: req.user.id })
     .then(fave => {
-      console.log(fave);
       const removeIndex = fave.locations.indexOf(parseInt(req.params.fave));
 
       fave.locations.splice(removeIndex, 1);

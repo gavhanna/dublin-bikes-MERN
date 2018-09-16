@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
+import axios from "axios";
 import moment from "moment";
 import classnames from "classnames";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
 
 class LocationInfo extends Component {
+
+  onFaveButtonClick = (e) => {
+    const addFave = this.props.addToFaves;
+    axios.post("/api/favourites/add", { location: this.props.location.number })
+      .then(fave => addFave(this.props.location))
+      .catch(err => console.log(err))
+  }
+
   render() {
     return (
       <div
@@ -11,7 +22,19 @@ class LocationInfo extends Component {
         })}
       >
         {/* {this.props.faveNums.includes(parseInt(this.props.location.number)) ? <span className="fave-button"><i class="fas fa-star"></i></span> : null} */}
-        {/* {TODO: If user is logged in, show a star. if user faved this, show a gold star} */}
+        {
+          this.props.auth.user ?
+            <span
+              data-number={this.props.location.number}
+              className={classnames("fave-button", {
+                "gold": this.props.faveNums.includes(parseInt(this.props.location.number))
+              })}
+              onClick={this.onFaveButtonClick}
+            >
+              <i className="fas fa-star"></i>
+            </span> :
+            null
+        }
         {!this.props.location.address ? <h2>Please select a location on the map</h2> :
           <p>{this.props.location.address}</p>}
         <div className="availability">
@@ -69,5 +92,11 @@ class LocationInfo extends Component {
   }
 }
 
+LocationInfo.propTypes = {
+  auth: PropTypes.object.isRequired
+}
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
 
-export default LocationInfo;
+export default connect(mapStateToProps)(LocationInfo);

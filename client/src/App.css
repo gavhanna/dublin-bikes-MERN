@@ -69,6 +69,11 @@
   right: 10%;
   font-size: 1rem;
   color: white;
+  cursor: pointer;
+}
+
+.fave-button>i {
+  pointer-events: none;
 }
 
 .gold {
