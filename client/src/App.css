@@ -5,7 +5,7 @@
 
 .location {
   color: white;
-  background: #209cee;
+  background: #343a40;
   text-align: center;
   position: fixed;
   font-size: 1rem;
@@ -15,10 +15,6 @@
   max-width: 100vw;
   padding: 15px 0;
   transition: all .2s ease-in-out;
-}
-
-.hide-info {
-  transform: translateY(1000px)
 }
 
 .availability {
@@ -43,4 +39,27 @@
 
 .green {
   color: lime;
+}
+
+.info-container {
+  text-align: center;
+  font-size: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.info-container>p {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hide-info {
+  transform: translateY(1000px)
+}
+
+.status {
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-around;
 }
