@@ -16,12 +16,15 @@ class LocationInfo extends Component {
 
   isFave = (location) => {
     let fave = false;
-    this.props.faveNums.forEach(faved => {
-      if (location.number === faved) {
-        fave = true;
-      }
-    })
-    return fave;
+    if (this.props.faveNums && this.props.faveNums.length > 0) {
+
+      this.props.faveNums.forEach(faved => {
+        if (location.number === faved) {
+          fave = true;
+        }
+      })
+      return fave;
+    }
   }
 
   render() {
