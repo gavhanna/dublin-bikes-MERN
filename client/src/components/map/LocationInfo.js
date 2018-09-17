@@ -14,8 +14,18 @@ class LocationInfo extends Component {
       .catch(err => console.log(err))
   }
 
+  isFave = (location) => {
+    let fave = false;
+    this.props.faveNums.forEach(faved => {
+      if (location.number === faved) {
+        fave = true;
+      }
+    })
+    return fave;
+  }
+
   render() {
-    const isFave = this.props.faveNums.includes(parseInt(this.props.location.number, 10));
+    const isFave = this.isFave(this.props.location);
     return (
       <div
         className={classnames("location", {
