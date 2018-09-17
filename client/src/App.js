@@ -66,7 +66,7 @@ class App extends Component {
       .then(() => {
         const locations = [];
         this.state.locations.forEach(location => {
-          if (this.state.faveNums.includes(parseInt(location.number, 10))) {
+          if (this.isFave(location)) {
             locations.push(location);
           }
         })
@@ -80,6 +80,19 @@ class App extends Component {
       faveNums: [...this.state.faveNums, location.number],
       faveLocations: [...this.state.faveLocations, location]
     })
+  }
+
+  isFave = (location) => {
+    let fave = false;
+    if (this.state.faveNums && this.state.faveNums.length > 0) {
+
+      this.state.faveNums.forEach(faved => {
+        if (location.number === faved) {
+          fave = true;
+        }
+      })
+      return fave;
+    }
   }
 
   deleteFromFaves = (location) => {

@@ -28,18 +28,19 @@ router.get("/", passport.authenticate("jwt", { session: false }), (req, res) => 
 // @desc     Add faves for current user
 // @acccess  Private
 router.post("/add", passport.authenticate("jwt", { session: false }), (req, res) => {
+  const location = parseInt(req.body.location);
   Favourites.findOne({ user: req.user.id })
     .then(favourites => {
       if (!favourites) {
-        new Favourites({ user: req.user.id, locations: [req.body.location] })
+        new Favourites({ user: req.user.id, locations: [location] })
           .save()
           .then(favourite => res.json(favourite));
       } else {
-        const newFave = parseInt(req.body.location);
+        const newFave = parseInt(location);
         if (favourites.locations.includes(newFave)) {
           res.json({ error: "Location already saved" })
         } else {
-          favourites.locations = [...favourites.locations, req.body.location];
+          favourites.locations = [...favourites.locations, location];
           favourites.save()
             .then(faves => res.json(faves))
             .catch(err => console.log(err))
