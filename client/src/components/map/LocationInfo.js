@@ -9,9 +9,15 @@ class LocationInfo extends Component {
 
   onFaveButtonClick = (e) => {
     const addFave = this.props.addToFaves;
-    axios.post("/api/favourites/add", { location: this.props.location.number })
-      .then(fave => addFave(this.props.location))
-      .catch(err => console.log(err))
+    if (this.props.location.number > 0) {
+      axios.post("/api/favourites/add", { location: this.props.location.number })
+        .then(fave => addFave(this.props.location))
+        .catch(err => console.log(err))
+    } else {
+      axios.post("/api/favourites/add", { location: e.target.dataset.number })
+        .then(fave => addFave(this.props.location))
+        .catch(err => console.log(err))
+    }
   }
 
   isFave = (location) => {
@@ -37,7 +43,7 @@ class LocationInfo extends Component {
       >
         {/* {this.props.faveNums.includes(parseInt(this.props.location.number)) ? <span className="fave-button"><i class="fas fa-star"></i></span> : null} */}
         {
-          this.props.auth.user ?
+          this.props.auth.user.name ?
             <span
               data-number={this.props.location.number}
               title={isFave ? "Go to Favourites Page to remove a favourite!" : "Click to add to favourites"}
