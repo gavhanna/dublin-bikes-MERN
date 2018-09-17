@@ -47,7 +47,6 @@ class Map extends Component {
   }
 
   initMarkers = () => {
-    console.log("initMarkers()");
     const click = this.onMarkerClick;
     const locations = this.state.locations;
     const locationMarkers = [];

@@ -14,7 +14,6 @@ class GoogleMap extends Component {
   }
 
   componentDidMount() {
-    console.log("Component did mount!!");
     this.initMap();
   }
 
@@ -31,7 +30,6 @@ class GoogleMap extends Component {
   }
 
   initMarkers = () => {
-    console.log("initMarkers()");
     const click = this.props.onMarkerClick;
     const locations = this.props.locations;
     const locationMarkers = [];
@@ -64,7 +62,6 @@ class GoogleMap extends Component {
     markers.forEach(marker => {
       marker.setMap(null);
     });
-    console.log("removeMarkers");
   }
 
   componentWillReceiveProps(nextProps) {
