@@ -15,6 +15,7 @@ class LocationInfo extends Component {
   }
 
   render() {
+    const isFave = this.props.faveNums.includes(parseInt(this.props.location.number, 10));
     return (
       <div
         className={classnames("location", {
@@ -26,8 +27,9 @@ class LocationInfo extends Component {
           this.props.auth.user ?
             <span
               data-number={this.props.location.number}
+              title={isFave ? "Go to Favourites Page to remove a favourite!" : "Click to add to favourites"}
               className={classnames("fave-button", {
-                "gold": this.props.faveNums.includes(parseInt(this.props.location.number))
+                "gold": isFave
               })}
               onClick={this.onFaveButtonClick}
             >

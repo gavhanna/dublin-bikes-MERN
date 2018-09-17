@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from "axios";
+// import axios from "axios";
 import GoogleMap from "./GoogleMap";
 import LocationInfo from "./LocationInfo";
 
@@ -7,7 +7,7 @@ class Map extends Component {
   constructor() {
     super();
     this.state = {
-      //locations: [],
+      locations: [],
       infoOpen: false,
       selectedLocation: {},
       isLocationSelected: false,
@@ -18,6 +18,7 @@ class Map extends Component {
   componentDidMount = () => {
     //this.getDublinBikesData();
     this.getCurrentPosition();
+    this.initMarkers();
     window.map.addListener("click", (e) => {
       this.onMapClick(e);
     });
@@ -43,6 +44,36 @@ class Map extends Component {
     if (e.latLng) {
       this.setState({ isLocationSelected: false })
     }
+  }
+
+  initMarkers = () => {
+    console.log("initMarkers()");
+    const click = this.onMarkerClick;
+    const locations = this.state.locations;
+    const locationMarkers = [];
+    locations.forEach(location => {
+      let iconCol = "209cee";
+      if (location.available_bikes < 4) {
+        iconCol = "cc4444";
+      }
+      if (location.available_bike_stands < 4) {
+        iconCol = "65BF68";
+      }
+      let marker = new window.google.maps.Marker({
+        position: location.position,
+        map: window.map,
+        icon: "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bicycle|bbT|" + location.available_bikes + "|" + iconCol + "|353535",
+        //label: String(location.available_bikes),
+        location: location
+      });
+      marker.addListener("click", function () {
+        click(marker);
+        window.map.panTo(marker.getPosition());
+        window.map.setZoom(17);
+      });
+      locationMarkers.push(marker);
+    });
+    this.setState({ markers: locationMarkers })
   }
 
   getCurrentPosition = () => {

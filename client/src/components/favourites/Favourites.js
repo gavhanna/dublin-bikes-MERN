@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios";
+import classnames from "classnames"
 
 class Favourites extends Component {
   onDeleteButtonClick = (e) => {
@@ -23,7 +24,7 @@ class Favourites extends Component {
               <th scope="col">Address</th>
               <th scope="col">Bikes</th>
               <th scope="col">Spaces</th>
-              <th scope="col">Remove</th>
+              <th scope="col">Unfavourite</th>
             </tr>
           </thead>
           <tbody>
@@ -31,9 +32,13 @@ class Favourites extends Component {
               return (
                 <tr key={location.number}>
                   <td>{location.address}</td>
-                  <td>{location.available_bikes}</td>
-                  <td>{location.available_bike_stands}</td>
-                  <td><button onClick={() => this.onDeleteButtonClick(location)} className="btn btn-warning">Delete</button></td>
+                  <td className={classnames("", {
+                    "red": location.available_bikes < 4
+                  })}>{location.available_bikes}</td>
+                  <td className={classnames("", {
+                    "red": location.available_bike_stands < 4
+                  })}>{location.available_bike_stands}</td>
+                  <td><button onClick={() => this.onDeleteButtonClick(location)} className="btn btn-warning">Remove</button></td>
                 </tr>
               )
             })}

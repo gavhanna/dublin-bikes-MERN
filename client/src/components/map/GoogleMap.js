@@ -8,7 +8,13 @@ class GoogleMap extends Component {
     }
   }
 
+
+  componentWillUnmount() {
+    this.removeMarkers(this.state.markers);
+  }
+
   componentDidMount() {
+    console.log("Component did mount!!");
     this.initMap();
   }
 
@@ -25,6 +31,7 @@ class GoogleMap extends Component {
   }
 
   initMarkers = () => {
+    console.log("initMarkers()");
     const click = this.props.onMarkerClick;
     const locations = this.props.locations;
     const locationMarkers = [];
