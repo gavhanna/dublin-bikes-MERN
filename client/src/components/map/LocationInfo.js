@@ -8,14 +8,13 @@ import { connect } from "react-redux";
 class LocationInfo extends Component {
 
   onFaveButtonClick = (e) => {
-    const addFave = this.props.addToFaves;
     if (this.props.location.number > 0) {
       axios.post("/api/favourites/add", { location: this.props.location.number })
-        .then(fave => addFave(this.props.location))
+        .then(fave => this.props.addToFaves(this.props.location))
         .catch(err => console.log(err))
     } else {
       axios.post("/api/favourites/add", { location: e.target.dataset.number })
-        .then(fave => addFave(this.props.location))
+        .then(fave => this.props.addToFaves(this.props.location))
         .catch(err => console.log(err))
     }
   }
