@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from "axios";
 import moment from "moment";
 import classnames from "classnames";
 import { PropTypes } from "prop-types";
@@ -37,7 +36,6 @@ class LocationInfo extends Component {
           "hide-info": !this.props.isLocationSelected
         })}
       >
-        {/* {this.props.faveNums.includes(parseInt(this.props.location.number)) ? <span className="fave-button"><i class="fas fa-star"></i></span> : null} */}
         {
           this.props.auth.user.name ?
             <span
