@@ -27,7 +27,6 @@ export default function (state = initialState, action) {
         loading: false
       }
     case DELETE_FAVOURITE:
-      console.log(action.payload, "payload in DELETE FAV");
       return {
         ...state,
         faveLocationsByNumber: action.payload,
