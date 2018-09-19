@@ -45,20 +45,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getDublinBikesData();
+    // this.getDublinBikesData();
+  };
 
-  }
-
-  getDublinBikesData = () => {
-    this.setState({ updating: true })
-    axios.get("https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=ef653629fed566ec812f1444f8bb2b3ddc6e1bbf")
-      .then(res => this.setState({
-        locations: res.data
-      }))
-      .then(() => this.setState({ updating: false }))
-      .then(() => this.getFaves())
-      .catch(err => console.log(err))
-  }
+  // getDublinBikesData = () => {
+  //   this.setState({ updating: true })
+  //   axios.get("https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=ef653629fed566ec812f1444f8bb2b3ddc6e1bbf")
+  //     .then(res => this.setState({
+  //       locations: res.data
+  //     }))
+  //     .then(() => this.setState({ updating: false }))
+  //     .then(() => this.getFaves())
+  //     .catch(err => console.log(err))
+  // }
 
   getFaves = () => {
     axios.get("/api/favourites")
@@ -75,25 +74,25 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  addToFaves = (location) => {
-    this.setState({
-      faveNums: [...this.state.faveNums, location.number],
-      faveLocations: [...this.state.faveLocations, location]
-    })
-  }
+  // addToFaves = (location) => {
+  //   this.setState({
+  //     faveNums: [...this.state.faveNums, location.number],
+  //     faveLocations: [...this.state.faveLocations, location]
+  //   })
+  // }
 
-  isFave = (location) => {
-    let fave = false;
-    if (this.state.faveNums && this.state.faveNums.length > 0) {
+  // isFave = (location) => {
+  //   let fave = false;
+  //   if (this.state.faveNums && this.state.faveNums.length > 0) {
 
-      this.state.faveNums.forEach(faved => {
-        if (location.number === faved) {
-          fave = true;
-        }
-      })
-      return fave;
-    }
-  }
+  //     this.state.faveNums.forEach(faved => {
+  //       if (location.number === faved) {
+  //         fave = true;
+  //       }
+  //     })
+  //     return fave;
+  //   }
+  // }
 
   deleteFromFaves = (location) => {
     const newFaveLocations = this.state.faveLocations.filter(fave => {

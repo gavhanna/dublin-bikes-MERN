@@ -4,8 +4,13 @@ import moment from "moment";
 import classnames from "classnames";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
+import { getFavourites } from "../../actions/favouritesActions";
 
 class LocationInfo extends Component {
+
+  componentDidMount() {
+    this.props.getFavourites();
+  }
 
   onFaveButtonClick = (e) => {
     if (this.props.location.number > 0) {
@@ -116,7 +121,8 @@ LocationInfo.propTypes = {
   auth: PropTypes.object.isRequired
 }
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  faveNums: state.favourites.faveLocationsByNumber
 })
 
-export default connect(mapStateToProps)(LocationInfo);
+export default connect(mapStateToProps, { getFavourites })(LocationInfo);

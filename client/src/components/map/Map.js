@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 // import axios from "axios";
 import GoogleMap from "./GoogleMap";
 import LocationInfo from "./LocationInfo";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
+import { getFavourites } from "../../actions/favouritesActions";
+import { getLocations } from "../../actions/locationsActions";
+
 
 class Map extends Component {
   constructor() {
@@ -17,8 +22,11 @@ class Map extends Component {
 
   componentDidMount = () => {
     //this.getDublinBikesData();
+    this.props.getFavourites();
+    this.props.getLocations();
     this.getCurrentPosition();
-    this.initMarkers();
+    console.log("MAP");
+    //this.initMarkers();
     window.map.addListener("click", (e) => {
       this.onMapClick(e);
     });
@@ -46,34 +54,35 @@ class Map extends Component {
     }
   }
 
-  initMarkers = () => {
-    const click = this.onMarkerClick;
-    const locations = this.state.locations;
-    const locationMarkers = [];
-    locations.forEach(location => {
-      let iconCol = "209cee";
-      if (location.available_bikes < 4) {
-        iconCol = "cc4444";
-      }
-      if (location.available_bike_stands < 4) {
-        iconCol = "65BF68";
-      }
-      let marker = new window.google.maps.Marker({
-        position: location.position,
-        map: window.map,
-        icon: "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bicycle|bbT|" + location.available_bikes + "|" + iconCol + "|353535",
-        //label: String(location.available_bikes),
-        location: location
-      });
-      marker.addListener("click", function () {
-        click(marker);
-        window.map.panTo(marker.getPosition());
-        window.map.setZoom(17);
-      });
-      locationMarkers.push(marker);
-    });
-    this.setState({ markers: locationMarkers })
-  }
+  // initMarkers = () => {
+  //   console.log("INIT MARKERS", this.props.locations);
+  //   const click = this.onMarkerClick;
+  //   const locations = this.props.locations;
+  //   const locationMarkers = [];
+  //   locations.forEach(location => {
+  //     let iconCol = "209cee";
+  //     if (location.available_bikes < 4) {
+  //       iconCol = "cc4444";
+  //     }
+  //     if (location.available_bike_stands < 4) {
+  //       iconCol = "65BF68";
+  //     }
+  //     let marker = new window.google.maps.Marker({
+  //       position: location.position,
+  //       map: window.map,
+  //       icon: "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bicycle|bbT|" + location.available_bikes + "|" + iconCol + "|353535",
+  //       //label: String(location.available_bikes),
+  //       location: location
+  //     });
+  //     marker.addListener("click", function () {
+  //       click(marker);
+  //       window.map.panTo(marker.getPosition());
+  //       window.map.setZoom(17);
+  //     });
+  //     locationMarkers.push(marker);
+  //   });
+  //   this.setState({ markers: locationMarkers })
+  // }
 
   getCurrentPosition = () => {
     if (navigator.geolocation) {
@@ -93,7 +102,7 @@ class Map extends Component {
     return (
       <div>
         <GoogleMap
-          locations={this.props.locations}
+          //locations={this.props.locations}
           selectedLocation={this.state.selectedLocation}
           onMarkerClick={this.onMarkerClick}
           onMapClick={this.onMapClick} />
@@ -108,4 +117,15 @@ class Map extends Component {
   }
 }
 
-export default Map;
+Map.propTypes = {
+  auth: PropTypes.object.isRequired,
+  faveNums: PropTypes.array,
+  locations: PropTypes.array
+}
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  faveNums: state.faveLocationsByNumber,
+  locations: state.locations.locations
+})
+
+export default connect(mapStateToProps, { getFavourites, getLocations })(Map);

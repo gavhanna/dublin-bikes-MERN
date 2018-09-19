@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
+import { getFavourites } from "../../actions/favouritesActions";
+import { getLocations } from "../../actions/locationsActions";
+
 
 class GoogleMap extends Component {
   constructor() {
@@ -8,13 +13,14 @@ class GoogleMap extends Component {
     }
   }
 
-
   componentWillUnmount() {
     this.removeMarkers(this.state.markers);
   }
 
   componentDidMount() {
     this.initMap();
+    this.props.getLocations();
+    console.log("GOOGLEMAP");
   }
 
   initMap = () => {
@@ -27,6 +33,7 @@ class GoogleMap extends Component {
       zoom: 16,
       center: loc
     });
+    this.initMarkers();
   }
 
   initMarkers = () => {
@@ -81,4 +88,15 @@ class GoogleMap extends Component {
   }
 }
 
-export default GoogleMap;
+GoogleMap.propTypes = {
+  auth: PropTypes.object.isRequired,
+  faveNums: PropTypes.array,
+  locations: PropTypes.array
+}
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  faveNums: state.faveLocationsByNumber,
+  locations: state.locations.locations
+})
+
+export default connect(mapStateToProps, { getFavourites, getLocations })(GoogleMap);
