@@ -3,7 +3,7 @@ import classnames from "classnames"
 
 const FaveTable = (props) => {
   const faves = props.locations.filter(location => {
-    if (props.faveNums.indexOf(location.number) > -1) {
+    if (props.faveNum && props.faveNums.indexOf(location.number) > -1) {
       return location;
     }
   })
