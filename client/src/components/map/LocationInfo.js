@@ -4,7 +4,7 @@ import moment from "moment";
 import classnames from "classnames";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { getFavourites } from "../../actions/favouritesActions";
+import { getFavourites, setFavourite } from "../../actions/favouritesActions";
 
 class LocationInfo extends Component {
 
@@ -13,15 +13,7 @@ class LocationInfo extends Component {
   }
 
   onFaveButtonClick = (e) => {
-    if (this.props.location.number > 0) {
-      axios.post("/api/favourites/add", { location: this.props.location.number })
-        .then(fave => this.props.addToFaves(this.props.location))
-        .catch(err => console.log(err))
-    } else {
-      axios.post("/api/favourites/add", { location: e.target.dataset.number })
-        .then(fave => this.props.addToFaves(this.props.location))
-        .catch(err => console.log(err))
-    }
+    this.props.setFavourite(this.props.location.number);
   }
 
   isFave = (location) => {
@@ -125,4 +117,4 @@ const mapStateToProps = (state) => ({
   faveNums: state.favourites.faveLocationsByNumber
 })
 
-export default connect(mapStateToProps, { getFavourites })(LocationInfo);
+export default connect(mapStateToProps, { getFavourites, setFavourite })(LocationInfo);

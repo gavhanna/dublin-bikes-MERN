@@ -1,18 +1,39 @@
-import { GET_FAVOURITES } from "../actions/types";
+import { GET_FAVOURITES, ADD_FAVOURITE, DELETE_FAVOURITE, FAVOURITES_LOADING } from "../actions/types";
 
 const initialState = {
   faveLocationsByNumber: [],
-  newFave: ""
+  newFave: "",
+  loading: false
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case FAVOURITES_LOADING:
+      return {
+        ...state,
+        loading: true
+      }
     case GET_FAVOURITES:
       return {
         ...state,
-        faveLocationsByNumber: action.payload
+        faveLocationsByNumber: action.payload,
+        loading: false
       }
-
+    case ADD_FAVOURITE:
+      return {
+        ...state,
+        newFave: action.payload,
+        faveLocationsByNumber: [...state.faveLocationsByNumber, action.payload],
+        loading: false
+      }
+    case DELETE_FAVOURITE:
+      console.log(action.payload, "payload in DELETE FAV");
+      return {
+        ...state,
+        faveLocationsByNumber: action.payload,
+        newFave: "",
+        loading: false
+      }
     default:
       return state;
   }

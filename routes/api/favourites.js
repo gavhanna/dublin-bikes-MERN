@@ -42,7 +42,7 @@ router.post("/add", passport.authenticate("jwt", { session: false }), (req, res)
         } else {
           favourites.locations = [...favourites.locations, location];
           favourites.save()
-            .then(faves => res.json(faves))
+            .then(faves => res.json(location))
             .catch(err => console.log(err))
         }
       }
@@ -58,7 +58,7 @@ router.delete("/remove/:fave", passport.authenticate("jwt", { session: false }),
       const removeIndex = fave.locations.indexOf(parseInt(req.params.fave));
 
       fave.locations.splice(removeIndex, 1);
-      fave.save().then(fave => res.json(fave))
+      fave.save().then(fave => res.json(fave.locations))
         .catch(err => res.status(404).json(err));
     })
 });

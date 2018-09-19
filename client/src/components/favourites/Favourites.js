@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import classnames from "classnames"
+import FavesTable from "./FavesTable";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { getFavourites } from "../../actions/favouritesActions";
+import { getFavourites, deleteFavourite } from "../../actions/favouritesActions";
 import { getLocations } from "../../actions/locationsActions";
 
 
@@ -12,61 +13,82 @@ class Favourites extends Component {
   constructor() {
     super();
     this.state = {
-      faveLocations: []
+      faveLocations: [],
+      faveNumbers: [],
+      faveNums: []
     }
     //this.props.getFavourites();
   }
 
   componentDidMount() {
     this.props.getFavourites();
-    this.props.getLocations();
-    this.setFaves();
-  }
-
-  componentWillReceiveProps() {
-    this.props.getFavourites();
-    this.props.getLocations();
-    this.setFaves();
-  }
-
-  onDeleteButtonClick = (e) => {
-    if (window.confirm("Are you sure?")) {
-      axios.delete("api/favourites/remove/" + e.number)
-        .then(res => this.props.deleteFromFaves(e))
-        .catch(err => console.log(err));
-    }
-  }
-
-  setFaves() {
-    const fave = this.isFave;
-    const locations = [];
-    this.props.locations.forEach(location => {
-      if (fave(location)) {
-        locations.push(location);
-      }
-    })
-    this.setState({ faveLocations: locations })
-  }
-
-  addToFaves = (location) => {
+    //this.props.getLocations();
+    //this.setFaves();
     this.setState({
-      // faveNums: [...this.state.faveNums, location.number],
-      faveLocations: [...this.state.faveLocations, location]
+      faveNums: this.props.faveNums
     })
   }
 
-  isFave = (location) => {
-    let fave = false;
-    if (this.props.faveNums && this.props.faveNums.length > 0) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.faveLocations !== this.state.faveLocations) {
+      //this.setFaves();
 
-      this.props.faveNums.forEach(faved => {
-        if (location.number === faved) {
-          fave = true;
+    }
+    //this.props.getFavourites();
+    //this.props.getLocations();
+    // this.setState({
+    //   faveNums: nextProps.faveNums,
+    //   forceUpdate: nextProps
+    // })
+  }
+
+  onDeleteButtonClick = (location) => {
+    // if (window.confirm("Are you sure?")) {
+    //   this.props.deleteFavourite(location.number);
+    //   this.setState({
+    //     faveLocations: this.state.faveLocations
+    //   })
+    // }
+    // console.log(location.target.getAttribute("data-num"));
+
+    // console.log(this.state.faveLocations);
+    const num = location.target.getAttribute("data-num");
+
+    if (window.confirm("Are you sure?")) {
+      this.props.deleteFavourite(location.target.getAttribute("data-num"));
+      const newArr = this.state.faveLocations.filter(location => {
+        if (location.number !== parseInt(num)) {
+          return location;
         }
       })
-      return fave;
+      this.setState({ faveLocations: newArr })
     }
   }
+
+  // setFaves() {
+  //   console.log(this.props.faveNums);
+  //   const fave = this.isFave;
+  //   const locations = [];
+  //   this.props.locations.forEach(location => {
+  //     if (fave(location)) {
+  //       locations.push(location);
+  //     }
+  //   })
+  //   this.setState({ faveLocations: locations })
+  // }
+
+  // isFave = (location) => {
+  //   let fave = false;
+  //   if (this.props.faveNums && this.props.faveNums.length > 0) {
+
+  //     this.props.faveNums.forEach(faved => {
+  //       if (location.number === faved) {
+  //         fave = true;
+  //       }
+  //     })
+  //     return fave;
+  //   }
+  // }
 
   render() {
     return (
@@ -74,7 +96,7 @@ class Favourites extends Component {
         {this.props.faveLocations &&
           <h1>Saved Locations</h1>
         }
-        <table className="table">
+        {/* <table className="table">
           <thead>
             <tr>
               <th scope="col">Address</th>
@@ -99,7 +121,12 @@ class Favourites extends Component {
               )
             })}
           </tbody>
-        </table>
+        </table> */}
+        <FavesTable
+          //faveLocations={this.state.faveLocations}
+          faveNums={this.props.faveNums}
+          locations={this.props.locations}
+          onDeleteButtonClick={this.onDeleteButtonClick} />
       </div>
     )
   }
@@ -117,4 +144,4 @@ const mapStateToProps = (state) => ({
   locations: state.locations.locations
 })
 
-export default connect(mapStateToProps, { getFavourites, getLocations })(Favourites);
+export default connect(mapStateToProps, { getFavourites, deleteFavourite, getLocations })(Favourites);
