@@ -16,7 +16,7 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link data-toggle="collapse" className="nav-link" to="/favourites">Favourites</Link>
+          <Link className="nav-link" to="/favourites">Favourites</Link>
         </li>
         <li className="nav-item">
           <a
@@ -31,10 +31,10 @@ class Navbar extends Component {
     const guestLinks = (
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link data-toggle="collapse" className="nav-link" to="/login">Login</Link>
+          <Link className="nav-link" to="/login">Login</Link>
         </li>
         <li className="nav-item">
-          <Link data-toggle="collapse" className="nav-link" to="/register">Register</Link>
+          <Link className="nav-link" to="/register">Register</Link>
         </li>
       </ul>
     );
