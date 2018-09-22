@@ -14,6 +14,7 @@ import Map from "./components/map/Map";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Favourites from './components/favourites/Favourites';
+import About from "./components/static/About"
 
 import './App.css';
 
@@ -51,6 +52,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             {/* <Route exact path="/favourites" component={Favourites} /> */}
             <Route exact path="/favourites" component={Favourites} />
+            <Route exact path="/about" component={About} ></Route>
           </div>
         </Router>
       </Provider>

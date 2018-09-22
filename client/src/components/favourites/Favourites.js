@@ -40,15 +40,30 @@ class Favourites extends Component {
   }
 
   render() {
-    return (
-      <div className="container">
-        {this.props.faveLocations &&
-          <h1>Saved Locations</h1>
-        }
+    const ifSaved = (
+      <div>
+        <h1>{this.props.auth.user.name}'s Saved Locations</h1>
         <FavesTable
           faveNums={this.props.faveNums}
           locations={this.props.locations}
           onDeleteButtonClick={this.onDeleteButtonClick} />
+      </div>
+    );
+    return (
+      <div className="container text-center" style={{ marginTop: "20px" }}>
+        {/* {this.props.faveNums &&
+          <h1>{this.props.auth.user.name}'s Saved Locations</h1>
+        } */}
+        {
+          this.props.faveNums.length > 0 ?
+            ifSaved :
+            <h2>No favourites saved</h2>
+
+        }
+        {/* <FavesTable
+          faveNums={this.props.faveNums}
+          locations={this.props.locations}
+          onDeleteButtonClick={this.onDeleteButtonClick} /> */}
       </div>
     )
   }
