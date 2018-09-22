@@ -17,6 +17,11 @@
   transition: all .2s ease-in-out;
 }
 
+.location>div {
+  max-width: 600px;
+  margin: 5px auto;
+}
+
 .availability {
   display: flex;
   justify-content: space-around;
@@ -78,4 +83,10 @@
 
 .gold {
   color: gold;
+}
+
+@media screen and (min-width: 600px) {
+  .location>p {
+    font-size: 1.5rem;
+  }
 }
