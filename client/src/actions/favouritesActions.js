@@ -7,7 +7,6 @@ export const getFavourites = (callback) => dispatch => {
   dispatch(setFavouritesLoading());
   axios.get("/api/favourites")
     .then(res => {
-      console.log(res);
       dispatch({
         type: GET_FAVOURITES,
         payload: [...res.data.locations]

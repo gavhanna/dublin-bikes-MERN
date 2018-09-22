@@ -4,7 +4,7 @@ import GoogleMap from "./GoogleMap";
 import LocationInfo from "./LocationInfo";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { getFavourites } from "../../actions/favouritesActions";
+import { getFavourites, setFavourite } from "../../actions/favouritesActions";
 import { getLocations } from "../../actions/locationsActions";
 
 
@@ -84,6 +84,8 @@ class Map extends Component {
   //   this.setState({ markers: locationMarkers })
   // }
 
+
+
   getCurrentPosition = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -105,6 +107,7 @@ class Map extends Component {
           //locations={this.props.locations}
           selectedLocation={this.state.selectedLocation}
           onMarkerClick={this.onMarkerClick}
+          faveNums={this.props.faveNums}
           onMapClick={this.onMapClick} />
         <LocationInfo
           location={this.state.selectedLocation}

@@ -18,6 +18,7 @@ class GoogleMap extends Component {
   }
 
   componentDidMount() {
+    this.props.getFavourites();
     this.initMap();
     this.props.getLocations();
     console.log("GOOGLEMAP");
@@ -37,10 +38,16 @@ class GoogleMap extends Component {
   }
 
   initMarkers = () => {
+    console.log(this.props);
     const click = this.props.onMarkerClick;
     const locations = this.props.locations;
+    const faveNums = this.props.faveNums;
     const locationMarkers = [];
     locations.forEach(location => {
+      let textColor = "353535";
+      if (faveNums && faveNums.includes(location.number)) {
+        textColor = "FFFF00"
+      }
       let iconCol = "209cee";
       if (location.available_bikes < 4) {
         iconCol = "cc4444";
@@ -51,7 +58,7 @@ class GoogleMap extends Component {
       let marker = new window.google.maps.Marker({
         position: location.position,
         map: window.map,
-        icon: "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_small&chld=bicycle|bbT|" + location.available_bikes + "|" + iconCol + "|353535",
+        icon: "https://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bbT|" + location.available_bikes + " / " + location.available_bike_stands + "|" + iconCol + "|" + textColor,
         //label: String(location.available_bikes),
         location: location
       });
@@ -95,7 +102,7 @@ GoogleMap.propTypes = {
 }
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  faveNums: state.faveLocationsByNumber,
+  faveNums: state.favourites.faveLocationsByNumber,
   locations: state.locations.locations
 })
 
