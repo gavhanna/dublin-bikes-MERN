@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -7,7 +7,9 @@ import { logoutUser } from "../../actions/authActions";
 class Navbar extends Component {
   onLogoutClick = (e) => {
     e.preventDefault();
-    this.props.logoutUser();
+    if (window.confirm("Log out?")) {
+      this.props.logoutUser();
+    }
   }
 
   render() {
@@ -15,14 +17,14 @@ class Navbar extends Component {
 
     const aboutLink = (
       <li className="nav-item">
-        <Link className="nav-link" to="/about"><i class="fas fa-info-circle"></i> About</Link>
+        <NavLink activeClassName="active" className="nav-link" exact to="/about"><i class="fas fa-info-circle"></i> About</NavLink>
       </li>
     )
 
     const authLinks = (
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/favourites"><i class="fas fa-star"></i> Favourites</Link>
+          <NavLink activeClassName="active" className="nav-link" exact to="/favourites"><i class="fas fa-star"></i> Favourites</NavLink>
         </li>
         {aboutLink}
         <li className="nav-item">
@@ -38,10 +40,10 @@ class Navbar extends Component {
     const guestLinks = (
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/login"><i class="fas fa-sign-in-alt"></i> Login</Link>
+          <NavLink activeClassName="active" className="nav-link" exact to="/login"><i class="fas fa-sign-in-alt"></i> Login</NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/register"><i class="fas fa-user-plus"></i> Register</Link>
+          <NavLink activeClassName="active" className="nav-link" exact to="/register"><i class="fas fa-user-plus"></i> Register</NavLink>
         </li>
         {aboutLink}
       </ul>
@@ -50,7 +52,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark text-light bg-dark">
         <div className="container">
-          <Link className="navbar-brand" to="/">DubBikes</Link>
+          <NavLink activeClassName="active" className="navbar-brand" exact to="/">DubBikes</NavLink>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
