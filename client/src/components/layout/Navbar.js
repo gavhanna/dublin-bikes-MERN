@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
+// TODO: make NavLink work correctly
+
 class Navbar extends Component {
   onLogoutClick = (e) => {
     e.preventDefault();
