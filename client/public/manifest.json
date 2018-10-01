@@ -16,8 +16,8 @@
     ],
     "start_url": "https://tranquil-sierra-57579.herokuapp.com/index.html",
     "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff",
+    "theme_color": "#343A40",
+    "background_color": "#FFFFFF",
     "lang": "",
     "orientation": "portrait",
     "description": "View Dublin Bikes locations, log in to save and quickly view favourite locations."
