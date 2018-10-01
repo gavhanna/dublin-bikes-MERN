@@ -1,15 +1,18 @@
 {
-  "short_name": "Dublin Bikes",
-  "name": "Dublin Bikes App",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "short_name": "dBikes",
+    "name": "Dublin Bikes Hub",
+    "icons": [
+        {
+            "src": "/images/favicon.ico",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        }
+    ],
+    "start_url": "https://tranquil-sierra-57579.herokuapp.com/index.html",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff",
+    "lang": "",
+    "orientation": "portrait",
+    "description": "View Dublin Bikes locations, log in to save and quickly view favourite locations."
 }
