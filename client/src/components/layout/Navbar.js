@@ -24,7 +24,7 @@ class Navbar extends Component {
     )
 
     const authLinks = (
-      <ul className="navbar-nav mr-auto">
+      <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <NavLink activeClassName="active" className="nav-link" exact to="/favourites"><i class="fas fa-star"></i> Favourites</NavLink>
         </li>
@@ -40,7 +40,7 @@ class Navbar extends Component {
     );
 
     const guestLinks = (
-      <ul className="navbar-nav mr-auto">
+      <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <NavLink activeClassName="active" className="nav-link" exact to="/login"><i class="fas fa-sign-in-alt"></i> Login</NavLink>
         </li>
@@ -54,7 +54,10 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark text-light bg-dark">
         <div className="container">
-          <NavLink activeClassName="active" className="navbar-brand" exact to="/">DubBikes</NavLink>
+          <NavLink activeClassName="active" className="navbar-brand" exact to="/">
+            <img id="nav-logo" src="/icons/android-icon-96x96.png" alt="dBikes Logo" />
+            <span> DubBikes</span>
+          </NavLink>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
