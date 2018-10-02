@@ -14,7 +14,7 @@
             "purpose": "any"
         }
     ],
-    "start_url": "https://tranquil-sierra-57579.herokuapp.com/index.html",
+    "start_url": "https://tranquil-sierra-57579.herokuapp.com/",
     "display": "standalone",
     "theme_color": "#343A40",
     "background_color": "#FFFFFF",
