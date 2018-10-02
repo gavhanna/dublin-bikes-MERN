@@ -19,9 +19,8 @@ class GoogleMap extends Component {
 
   componentDidMount() {
     this.props.getFavourites();
-    this.initMap();
     this.props.getLocations();
-    console.log("GOOGLEMAP");
+    this.initMap();
   }
 
   initMap = () => {
@@ -38,7 +37,6 @@ class GoogleMap extends Component {
   }
 
   initMarkers = () => {
-    console.log(this.props);
     const click = this.props.onMarkerClick;
     const locations = this.props.locations;
     const faveNums = this.props.faveNums;
@@ -81,6 +79,9 @@ class GoogleMap extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.state.markers.length > 0) {
       this.removeMarkers(this.state.markers);
+    }
+    if (!window.map) {
+      this.initMap();
     }
     this.initMarkers();
   }

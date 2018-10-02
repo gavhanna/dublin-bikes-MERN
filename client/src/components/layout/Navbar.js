@@ -19,14 +19,14 @@ class Navbar extends Component {
 
     const aboutLink = (
       <li className="nav-item">
-        <NavLink activeClassName="active" className="nav-link" exact to="/about"><i class="fas fa-info-circle"></i> About</NavLink>
+        <NavLink activeClassName="active" className="nav-link" exact to="/about"><i className="fas fa-info-circle"></i> About</NavLink>
       </li>
     )
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <NavLink activeClassName="active" className="nav-link" exact to="/favourites"><i class="fas fa-star"></i> Favourites</NavLink>
+          <NavLink activeClassName="active" className="nav-link" exact to="/favourites"><i className="fas fa-star"></i> Favourites</NavLink>
         </li>
         {aboutLink}
         <li className="nav-item">
@@ -34,7 +34,7 @@ class Navbar extends Component {
             onClick={this.onLogoutClick}
             className="nav-link"
             href=""
-          ><i class="fas fa-sign-out-alt"></i> Logout</a>
+          ><i className="fas fa-sign-out-alt"></i> Logout</a>
         </li>
       </ul>
     );
