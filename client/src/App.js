@@ -47,7 +47,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <Route exact path="/" component={Map} />
+            <Route exact path="/" render={() => <Map />} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             {/* <Route exact path="/favourites" component={Favourites} /> */}
