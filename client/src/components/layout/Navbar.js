@@ -24,7 +24,7 @@ class Navbar extends Component {
     )
 
     const authLinks = (
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ml-auto" data-toggle="collapse" data-target="#navbarSupportedContent">
         <li className="nav-item">
           <NavLink activeClassName="active" className="nav-link" exact to="/favourites"><i className="fas fa-star"></i> Favourites</NavLink>
         </li>
@@ -40,7 +40,7 @@ class Navbar extends Component {
     );
 
     const guestLinks = (
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ml-auto" data-toggle="collapse" data-target="#navbarSupportedContent">
         <li className="nav-item">
           <NavLink activeClassName="active" className="nav-link" exact to="/login"><i class="fas fa-sign-in-alt"></i> Login</NavLink>
         </li>

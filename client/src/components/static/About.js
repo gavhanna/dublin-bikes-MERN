@@ -3,7 +3,7 @@ import Footer from "../layout/Footer"
 
 const About = () => {
   return (
-    <div class="container text-center" style={{ marginTop: "20px", padding: "10px" }}>
+    <div className="container text-center" style={{ marginTop: "20px", padding: "10px" }}>
       <div className="row justify-content-md-center">
         <div className="col-12">
           <img src="/icons/android-icon-96x96.png" alt="dBikes Logo" />
