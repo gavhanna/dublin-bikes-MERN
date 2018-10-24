@@ -8,7 +8,7 @@ import { getFavourites, setFavourite } from "../../actions/favouritesActions";
 class LocationInfo extends Component {
 
   componentDidMount() {
-    this.props.getFavourites();
+    // this.props.getFavourites();
   }
 
   onFaveButtonClick = (e) => {

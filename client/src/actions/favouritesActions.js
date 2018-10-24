@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_FAVOURITES, ADD_FAVOURITE, DELETE_FAVOURITE, FAVOURITES_LOADING } from "./types";
+import { EMPTY_FAVOURITES, GET_FAVOURITES, ADD_FAVOURITE, DELETE_FAVOURITE, FAVOURITES_LOADING } from "./types";
 
 
 export const getFavourites = (callback) => dispatch => {
@@ -35,6 +35,13 @@ export const deleteFavourite = (num) => dispatch => {
       payload: res.data
     }))
     .catch(err => console.log(err));
+}
+
+export const emptyFavourites = () => dispatch => {
+  dispatch({
+    type: EMPTY_FAVOURITES,
+    payload: []
+  })
 }
 
 export const setFavouritesLoading = () => {

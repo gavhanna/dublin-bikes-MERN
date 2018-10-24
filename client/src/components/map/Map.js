@@ -19,8 +19,8 @@ class Map extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getFavourites();
-    this.props.getLocations();
+    // this.props.getFavourites();
+    // this.props.getLocations();
     this.getCurrentPosition();
     window.map.addListener("click", (e) => {
       this.onMapClick(e);
@@ -67,7 +67,7 @@ class Map extends Component {
           location={this.state.selectedLocation}
           isLocationSelected={this.state.isLocationSelected}
           faveLocations={this.props.faveLocations}
-          faveNums={this.props.faveNums}
+          //faveNums={this.props.faveNums}
           addToFaves={this.props.addToFaves} />
       </div>
     )

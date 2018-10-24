@@ -1,5 +1,5 @@
 {
-  "name": "dublin-bikes",
+  "name": "dbkes",
   "version": "1.0.0",
   "description": "A Dublin Bikes app built on the MERN stack",
   "main": "server.js",

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import FavesTable from "./FavesTable";
+import Loader from "../common/Loader";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { getFavourites, deleteFavourite } from "../../actions/favouritesActions";
@@ -18,7 +19,7 @@ class Favourites extends Component {
   }
 
   componentDidMount() {
-    this.props.getFavourites();
+    // this.props.getFavourites();
     this.setState({
       faveNums: this.props.faveNums
     })
@@ -30,7 +31,7 @@ class Favourites extends Component {
 
     if (window.confirm("Are you sure?")) {
       this.props.deleteFavourite(location.target.getAttribute("data-num"));
-      const newArr = this.state.faveLocations.filter(location => {
+      const newArr = this.props.faveNums.filter(location => {
         if (location.number !== parseInt(num, 10)) {
           return location;
         }
@@ -51,19 +52,12 @@ class Favourites extends Component {
     );
     return (
       <div className="container text-center" style={{ marginTop: "20px" }}>
-        {/* {this.props.faveNums &&
-          <h1>{this.props.auth.user.name}'s Saved Locations</h1>
-        } */}
         {
-          this.props.faveNums.length > 0 ?
-            ifSaved :
-            <h2>No favourites saved</h2>
-
+          this.props.loading ? <Loader /> :
+            this.props.faveNums.length > 0 ?
+              ifSaved :
+              <h2>No favourites saved</h2>
         }
-        {/* <FavesTable
-          faveNums={this.props.faveNums}
-          locations={this.props.locations}
-          onDeleteButtonClick={this.onDeleteButtonClick} /> */}
       </div>
     )
   }
@@ -78,7 +72,8 @@ Favourites.propTypes = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   faveNums: state.favourites.faveLocationsByNumber,
-  locations: state.locations.locations
+  locations: state.locations.locations,
+  loading: state.favourites.loading
 })
 
 export default connect(mapStateToProps, { getFavourites, deleteFavourite, getLocations })(Favourites);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken"
 import jwt_decode from "jwt-decode";
+import { emptyFavourites, getFavourites } from "./favouritesActions";
 
 import { GET_ERRORS } from "./types"
 import { SET_CURRENT_USER } from "./types"
@@ -30,6 +31,7 @@ export const loginUser = (userData) => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
+      dispatch(getFavourites());
     })
     .catch(err =>
       dispatch({
@@ -54,4 +56,5 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to {} which will also set isAuthenticated to false
   dispatch(setCurrentUser({}));
+  dispatch(emptyFavourites());
 }

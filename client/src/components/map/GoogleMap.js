@@ -18,9 +18,10 @@ class GoogleMap extends Component {
   }
 
   componentDidMount() {
-    this.props.getFavourites();
+    //this.props.getFavourites();
     this.props.getLocations();
     this.initMap();
+    this.initMarkers();
   }
 
   initMap = () => {
@@ -33,15 +34,14 @@ class GoogleMap extends Component {
       zoom: 16,
       center: loc
     });
-    this.initMarkers();
+    // this.initMarkers();
   }
 
   initMarkers = () => {
     const click = this.props.onMarkerClick;
-    const locations = this.props.locations;
     const faveNums = this.props.faveNums;
     const locationMarkers = [];
-    locations.forEach(location => {
+    this.props.locations.forEach(location => {
       let textColor = "353535";
       if (faveNums && faveNums.includes(location.number)) {
         textColor = "FFFF00"
